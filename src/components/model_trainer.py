@@ -1,7 +1,6 @@
 import os
 
 import sys
-from catboost import CatBoostRegressor
 from sklearn.ensemble import (
     AdaBoostRegressor,
     GradientBoostingRegressor,
@@ -18,7 +17,7 @@ from src.logger import logging
 
 from dataclasses import dataclass
 
-from src.utils import save_object, evaluate_model
+from src.utils import load_object, evaluate_model
 
 @dataclass
 class ModelTrainerConfig:
@@ -44,7 +43,6 @@ class ModelTrainer:
                 "Decision Tree": DecisionTreeRegressor(),
                 "Gradient Boosting": GradientBoostingRegressor(),
                 "Linear Regression": LinearRegression(),
-                "CatBoosting Regressor": CatBoostRegressor(verbose=False),
                 "AdaBoost Regressor": AdaBoostRegressor(),
             }
 
@@ -73,11 +71,6 @@ class ModelTrainer:
                 "XGBRegressor":{
                     'learning_rate':[.1,.01,.05,.001],
                     'n_estimators': [8,16,32,64,128,256]
-                },
-                "CatBoosting Regressor":{
-                    'depth': [6,8,10],
-                    'learning_rate': [0.01, 0.05, 0.1],
-                    'iterations': [30, 50, 100]
                 },
                 "AdaBoost Regressor":{
                     'learning_rate':[.1,.01,0.5,.001],
